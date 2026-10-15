@@ -21,10 +21,43 @@
         height: auto;
         object-fit: fill;
     }
+
+    #locations{
+        width:250px;
+
+    }
+
+    .location{
+        padding:100px;
+        border-bottom: 1px solid #ddd;
+        cursor:pointer;
+   
+    }
+
+    .location:hover{
+        background:#eee;
+
+
+    }
+
+    .container{
+        display:flex;
+        gap:15px;
+    }
 </style>
 <body>
     <h1>Simple Maps</h1>
-    <div id="map"></div>
+    <div id="locations"></div>
+         <h3>Locations</h3>
+         <div id="location-list"></div>
+         </div>
+
+
+
+
+         <h3>Map</h3>
+         <div id="map"></div>
+    </div>
     
 </body>
 <script>
@@ -65,6 +98,20 @@
                 ${image}
                  `);
 
+                 // Flyto
+
+                const item = document.createElement('div');
+                item.className = 'locations';
+                item.textContent = pin.title;
+
+                document.getElementById('location-list').appendChild(item);
+
+                item.onclick = () => {
+                   map.flyTo([pin.lat, pin.lng], 18);
+                    marker.openPopup();
+                }
+
+
         });
 
         //layer control
@@ -73,6 +120,8 @@
             "Satellite" : satellite
         }
         L.control.layers(baseMaps).addTo(map);
+
+
        
      });
    }
